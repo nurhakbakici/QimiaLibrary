@@ -21,6 +21,7 @@ public class QimiaLibraryDbContext : DbContext
     public DbSet<Reservations> Reservations { get; set; }
     public DbSet<WorkerStatus> WorkerStatus { get; set; }
     public DbSet<BookStatus> BookStatus { get; set; }
+    public DbSet<ReservationStatus> ReservationStatus { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +38,11 @@ public class QimiaLibraryDbContext : DbContext
             .WithMany()
             .HasForeignKey(b => b.BStatusID);
 
+        modelBuilder.Entity<Reservations>()
+            .HasOne(r => r.ReservationStatus)
+            .WithMany()
+            .HasForeignKey(r => r.RStatusID);
+
         modelBuilder.Entity<Reservations>().
             HasOne(r => r.Workers)
             .WithMany()
@@ -52,6 +58,9 @@ public class QimiaLibraryDbContext : DbContext
 
         modelBuilder.Entity<WorkerStatus>()
             .HasKey(ws => ws.WStatusID);
+
+        modelBuilder.Entity<ReservationStatus>()
+            .HasKey(rs => rs.RStatusID);
 
         modelBuilder.Entity<Books>()
             .HasKey(b => b.BookID);

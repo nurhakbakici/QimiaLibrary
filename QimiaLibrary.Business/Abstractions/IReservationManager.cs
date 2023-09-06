@@ -17,5 +17,5 @@ public interface IReservationManager
 
     public Task DeleteReservationById(int reservationId, CancellationToken cancellationToken);
 
-    public Task<ICollection<Reservations>> GetAllReservationsAsync(CancellationToken cancellationToken);
+    public Task<IEnumerable<Reservations>> GetAllReservationsAsync(CancellationToken cancellationToken);
 }

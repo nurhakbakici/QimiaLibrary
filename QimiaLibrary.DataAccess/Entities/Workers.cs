@@ -13,6 +13,6 @@ public class Workers
     public string LastName { get; set; } = string.Empty;
     public int WStatusID { get; set; }
 
-    public WorkerStatus WorkerStatus { get; set; }
-    public ICollection<Reservations> Reservations { get; set; }    
+    public WorkerStatus? WorkerStatus { get; set; }
+    public ICollection<Reservations>? Reservations { get; set; }    
 }

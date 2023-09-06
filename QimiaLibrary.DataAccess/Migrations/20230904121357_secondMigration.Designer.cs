@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QimiaLibrary.DataAccess;
 
@@ -11,9 +12,11 @@ using QimiaLibrary.DataAccess;
 namespace QimiaLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(QimiaLibraryDbContext))]
-    partial class QimiaLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230904121357_secondMigration")]
+    partial class secondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
