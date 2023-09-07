@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QimiaLibrary.Business.Implementations.Commands.Workers.WorkerDtos;
 
-public class UpdateWorkerStatusCommand
+public class UpdateWorkerStatusDto
 {
-    WorkerStatus? WorkerStatus { get; set; }
+    public int WStatusId{ get; set; }
 }
