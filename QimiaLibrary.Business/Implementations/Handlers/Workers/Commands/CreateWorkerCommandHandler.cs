@@ -21,11 +21,11 @@ public class CreateWorkerCommandHandler : IRequestHandler<CreateWorkerCommand, i
 
     public async Task<int> Handle(CreateWorkerCommand request, CancellationToken cancellationToken)
     {
-        var worker = new QimiaLibrary.DataAccess.Entities.Workers
+        var worker = new DataAccess.Entities.Workers
         {
             FirstMidName = request.Worker.FirstMidName,
             LastName = request.Worker.LastName,
-            WorkerStatus = request.Worker.WorkerStatus,
+            WStatusID = request.Worker.WStatusId,
         };
 
         await _workerManager.CreateWorkerAsync(worker, cancellationToken);

@@ -26,6 +26,8 @@ public class GetWorkersQueryHandler : IRequestHandler<GetWorkersQuery, List<Work
     {
         var workers = await _workerManager.GetAllWorkersAsync(cancellationToken);
 
+        var availableWorkers = workers.Where(w => w.WStatusID == 1 ||  w.WStatusID == 2);
+
         return workers.Select(w => _mapper.Map<WorkerDto>(w)).ToList();
     }
 }
