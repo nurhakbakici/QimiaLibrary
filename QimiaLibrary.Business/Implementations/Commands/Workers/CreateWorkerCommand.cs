@@ -10,10 +10,10 @@ namespace QimiaLibrary.Business.Implementations.Commands.Workers;
 
 public class CreateWorkerCommand : IRequest<int>
 {
-    public CreateWorkerDto CreateWorkerDto { get; set; }
+    public CreateWorkerDto Worker { get; set; }
 
     public CreateWorkerCommand(CreateWorkerDto worker)
     {
-        CreateWorkerDto = worker;
+        Worker = worker;
     }
 }

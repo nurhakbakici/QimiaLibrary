@@ -15,5 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\QimiaLibrary.DataAccess\QimiaLibrary.DataAccess.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Implementations\Handlers\Books\Commands\" />
+    <Folder Include="Implementations\Handlers\Reservations\Commands\" />
+  </ItemGroup>
 
 </Project>
