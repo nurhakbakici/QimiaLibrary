@@ -61,4 +61,16 @@ public class WorkersController : Controller
 
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteWorker(
+        [FromRoute] int id,
+        //[FromBody]UpdateWorkerStatusDto worker,
+        CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteWorkerCommand(id), cancellationToken);
+
+        return NoContent();
+    }
 }
