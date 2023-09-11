@@ -25,6 +25,19 @@ namespace QimiaLibrary.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ReservationStatus",
+                columns: table => new
+                {
+                    RStatusID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RStatusName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationStatus", x => x.RStatusID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkerStatus",
                 columns: table => new
                 {
@@ -66,6 +79,7 @@ namespace QimiaLibrary.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkerID = table.Column<int>(type: "int", nullable: false),
                     BookID = table.Column<int>(type: "int", nullable: false),
+                    RStatusID = table.Column<int>(type: "int", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     WorkersWorkerID = table.Column<int>(type: "int", nullable: true)
@@ -73,6 +87,12 @@ namespace QimiaLibrary.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservations", x => x.ReservationID);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservationStatus_RStatusID",
+                        column: x => x.RStatusID,
+                        principalTable: "ReservationStatus",
+                        principalColumn: "RStatusID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Workers_WorkerID",
                         column: x => x.WorkerID,
@@ -119,6 +139,11 @@ namespace QimiaLibrary.DataAccess.Migrations
                 column: "BStatusID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_RStatusID",
+                table: "Reservations",
+                column: "RStatusID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_WorkerID",
                 table: "Reservations",
                 column: "WorkerID");
@@ -145,6 +170,9 @@ namespace QimiaLibrary.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reservations");
+
+            migrationBuilder.DropTable(
+                name: "ReservationStatus");
 
             migrationBuilder.DropTable(
                 name: "Workers");

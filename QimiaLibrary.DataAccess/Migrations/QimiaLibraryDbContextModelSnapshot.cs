@@ -217,8 +217,7 @@ namespace QimiaLibrary.DataAccess.Migrations
 
             modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Reservations", b =>
                 {
-                    b.Navigation("Books")
-                        .IsRequired();
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Workers", b =>
