@@ -15,6 +15,6 @@ public class Books
     public int Count { get; set; }
     public int BStatusID { get; set; }
 
-    public BookStatus BookStatus { get; set; }
-    public Reservations Reservations { get; set; }
+    public BookStatus? BookStatus { get; set; }
+    public ICollection<Reservations> Reservations { get; set; }
 }

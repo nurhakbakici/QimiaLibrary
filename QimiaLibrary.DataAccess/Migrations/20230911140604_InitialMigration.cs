@@ -51,6 +51,28 @@ namespace QimiaLibrary.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    BookID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    BStatusID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.BookID);
+                    table.ForeignKey(
+                        name: "FK_Books_BookStatus_BStatusID",
+                        column: x => x.BStatusID,
+                        principalTable: "BookStatus",
+                        principalColumn: "BStatusID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Workers",
                 columns: table => new
                 {
@@ -82,11 +104,23 @@ namespace QimiaLibrary.DataAccess.Migrations
                     RStatusID = table.Column<int>(type: "int", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BooksBookID = table.Column<int>(type: "int", nullable: true),
                     WorkersWorkerID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservations", x => x.ReservationID);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Books_BookID",
+                        column: x => x.BookID,
+                        principalTable: "Books",
+                        principalColumn: "BookID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Books_BooksBookID",
+                        column: x => x.BooksBookID,
+                        principalTable: "Books",
+                        principalColumn: "BookID");
                     table.ForeignKey(
                         name: "FK_Reservations_ReservationStatus_RStatusID",
                         column: x => x.RStatusID,
@@ -106,37 +140,20 @@ namespace QimiaLibrary.DataAccess.Migrations
                         principalColumn: "WorkerID");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Books",
-                columns: table => new
-                {
-                    BookID = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false),
-                    BStatusID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Books", x => x.BookID);
-                    table.ForeignKey(
-                        name: "FK_Books_BookStatus_BStatusID",
-                        column: x => x.BStatusID,
-                        principalTable: "BookStatus",
-                        principalColumn: "BStatusID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Books_Reservations_BookID",
-                        column: x => x.BookID,
-                        principalTable: "Reservations",
-                        principalColumn: "ReservationID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Books_BStatusID",
                 table: "Books",
                 column: "BStatusID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_BookID",
+                table: "Reservations",
+                column: "BookID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_BooksBookID",
+                table: "Reservations",
+                column: "BooksBookID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RStatusID",
@@ -163,19 +180,19 @@ namespace QimiaLibrary.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Books");
-
-            migrationBuilder.DropTable(
-                name: "BookStatus");
-
-            migrationBuilder.DropTable(
                 name: "Reservations");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "ReservationStatus");
 
             migrationBuilder.DropTable(
                 name: "Workers");
+
+            migrationBuilder.DropTable(
+                name: "BookStatus");
 
             migrationBuilder.DropTable(
                 name: "WorkerStatus");

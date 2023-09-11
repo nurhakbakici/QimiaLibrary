@@ -42,7 +42,10 @@ namespace QimiaLibrary.DataAccess.Migrations
             modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Books", b =>
                 {
                     b.Property<int>("BookID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookID"));
 
                     b.Property<string>("Author")
                         .IsRequired()
@@ -93,6 +96,9 @@ namespace QimiaLibrary.DataAccess.Migrations
                     b.Property<int>("BookID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BooksBookID")
+                        .HasColumnType("int");
+
                     b.Property<int>("RStatusID")
                         .HasColumnType("int");
 
@@ -109,6 +115,10 @@ namespace QimiaLibrary.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ReservationID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("BooksBookID");
 
                     b.HasIndex("RStatusID");
 
@@ -170,19 +180,21 @@ namespace QimiaLibrary.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QimiaLibrary.DataAccess.Entities.Reservations", "Reservations")
-                        .WithOne("Books")
-                        .HasForeignKey("QimiaLibrary.DataAccess.Entities.Books", "BookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("BookStatus");
-
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Reservations", b =>
                 {
+                    b.HasOne("QimiaLibrary.DataAccess.Entities.Books", "Books")
+                        .WithMany()
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QimiaLibrary.DataAccess.Entities.Books", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("BooksBookID");
+
                     b.HasOne("QimiaLibrary.DataAccess.Entities.ReservationStatus", "ReservationStatus")
                         .WithMany()
                         .HasForeignKey("RStatusID")
@@ -198,6 +210,8 @@ namespace QimiaLibrary.DataAccess.Migrations
                     b.HasOne("QimiaLibrary.DataAccess.Entities.Workers", null)
                         .WithMany("Reservations")
                         .HasForeignKey("WorkersWorkerID");
+
+                    b.Navigation("Books");
 
                     b.Navigation("ReservationStatus");
 
@@ -215,9 +229,9 @@ namespace QimiaLibrary.DataAccess.Migrations
                     b.Navigation("WorkerStatus");
                 });
 
-            modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Reservations", b =>
+            modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Books", b =>
                 {
-                    b.Navigation("Books");
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("QimiaLibrary.DataAccess.Entities.Workers", b =>

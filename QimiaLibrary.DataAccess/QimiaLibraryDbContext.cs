@@ -48,10 +48,20 @@ public class QimiaLibraryDbContext : DbContext
             .WithMany()
             .HasForeignKey(r => r.WorkerID);
 
-        modelBuilder.Entity<Reservations>()
-              .HasOne(r => r.Books)
-              .WithOne(b => b.Reservations)
-              .HasForeignKey<Books>(b => b.BookID);
+        modelBuilder.Entity<Reservations>().
+            HasOne(r => r.Books)
+            .WithMany()
+            .HasForeignKey(r => r.BookID);
+
+        //modelBuilder.Entity<Reservations>()
+        //      .HasOne(r => r.Books)
+        //      .WithOne(b => b.Reservations)
+        //      .HasForeignKey<Books>(b => b.BookID);
+
+        modelBuilder.Entity<Reservations>().
+            HasOne(r => r.Books)
+            .WithMany()
+            .HasForeignKey(r => r.BookID);
 
         modelBuilder.Entity<BookStatus>()
             .HasKey(bs => bs.BStatusID);
