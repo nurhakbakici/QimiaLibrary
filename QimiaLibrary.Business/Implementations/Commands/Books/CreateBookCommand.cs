@@ -10,10 +10,10 @@ namespace QimiaLibrary.Business.Implementations.Commands.Books;
 
 public class CreateBookCommand : IRequest<int>
 {
-    public CreateBookDto CreateBookDto { get; set; }
+    public CreateBookDto Book { get; set; }
 
-    public CreateBookCommand(CreateBookDto createBookDto)
+    public CreateBookCommand(CreateBookDto book)
     {
-        CreateBookDto = createBookDto;
+        Book = book;
     }
 }

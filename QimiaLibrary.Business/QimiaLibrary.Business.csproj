@@ -17,7 +17,6 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Folder Include="Implementations\Handlers\Books\Commands\" />
     <Folder Include="Implementations\Handlers\Reservations\Commands\" />
   </ItemGroup>
 

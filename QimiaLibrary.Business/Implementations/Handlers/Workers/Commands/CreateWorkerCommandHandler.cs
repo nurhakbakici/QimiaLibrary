@@ -25,7 +25,7 @@ public class CreateWorkerCommandHandler : IRequestHandler<CreateWorkerCommand, i
         {
             FirstMidName = request.Worker.FirstMidName,
             LastName = request.Worker.LastName,
-            WStatusID = request.Worker.WStatusId,
+            WStatusID = 1, // a newly added worker must be on working status
         };
 
         await _workerManager.CreateWorkerAsync(worker, cancellationToken);

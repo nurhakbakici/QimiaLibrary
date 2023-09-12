@@ -11,5 +11,5 @@ public class CreateBookDto
 {
     public string? Title { get; set; }
     public string? Author { get; set; }
-    public BookStatus? BookStatus { get; set; }
+    //public int BStatusId{ get; set; }
 }

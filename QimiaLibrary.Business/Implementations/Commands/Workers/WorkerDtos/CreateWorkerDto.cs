@@ -11,5 +11,5 @@ public class CreateWorkerDto
 {
     public string? FirstMidName { get; set; }
     public string? LastName { get; set; }
-    public int WStatusId { get; set; }
+    //public int WStatusId { get; set; }
 }

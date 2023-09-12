@@ -8,12 +8,7 @@ using System.Threading.Tasks;
 
 namespace QimiaLibrary.Business.Implementations.Queries.Books;
 
-public class GetAllAvailableBooks : IRequest<BookDto>
+public class GetAvailableBooksQuery : IRequest<List<BookDto>>
 {
-    public DateTime CurrentTime{ get; set; }
 
-    public GetAllAvailableBooks(DateTime currentTime)
-    {
-        CurrentTime = currentTime;
-    }
 }

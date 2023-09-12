@@ -62,10 +62,21 @@ public class WorkersController : Controller
         return NoContent();
     }
 
+    [HttpPut("{id}/statusUpdate")]
+    public async Task<ActionResult> UpdateWorkerStatus(
+        [FromRoute] int id,
+        [FromBody] UpdateWorkerStatusDto worker,
+        CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new UpdateWorkerStatusCommand(id, worker), cancellationToken);
+
+        return NoContent();
+    }
+
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteWorker(
         [FromRoute] int id,
-        //[FromBody]UpdateWorkerStatusDto worker,
         CancellationToken cancellationToken)
     {
         await _mediator.Send(
