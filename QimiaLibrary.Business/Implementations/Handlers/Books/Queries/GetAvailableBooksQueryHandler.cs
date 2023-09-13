@@ -26,7 +26,7 @@ public class GetAvailableBooksQueryHandler : IRequestHandler<GetAvailableBooksQu
     {
         var books = await _bookManager.GetAllBooksAsync(cancellationToken);
 
-        var availableBooks = books.Where(b => b.BStatusID == 1 && b.Count >= 0);
+        var availableBooks = books.Where(b => b.BStatusID == 1);
 
         return availableBooks.Select(b => _mapper.Map<BookDto>(b)).ToList();
     }

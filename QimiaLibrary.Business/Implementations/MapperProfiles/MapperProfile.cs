@@ -18,10 +18,10 @@ public class MapperProfile : Profile
         CreateMap<Workers, WorkerDto>();
 
         CreateMap<Books, BookDto>();
-            
+
         CreateMap<Reservations, ReservationDto>()
-            .ForMember(dest => dest.RStatusID, opt => opt.MapFrom(src => src.ReservationStatus.RStatusID))
-            .ForMember(dest => dest.WorkerID, opt => opt.MapFrom(src => src.Workers.WorkerID))
-            .ForMember(dest => dest.BookID, opt => opt.MapFrom(src => src.Books.BookID));
+            .ForMember(dest => dest.RStatusID, opt => opt.MapFrom(src => src.RStatusID))
+            .ForMember(dest => dest.WorkerID, opt => opt.MapFrom(src => src.WorkerID))
+            .ForMember(dest => dest.BookID, opt => opt.MapFrom(src => src.BookID));
     }
 }

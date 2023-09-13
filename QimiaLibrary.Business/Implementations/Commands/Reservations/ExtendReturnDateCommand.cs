@@ -12,11 +12,11 @@ namespace QimiaLibrary.Business.Implementations.Commands.Reservations;
 public class ExtendReturnDateCommand : IRequest<Unit>
 {
     public int ReservationId { get; }
-    public ExtendReturnDateDto extendReturnDateDto { get; set; }
+    public ExtendReturnDateDto Reservation { get; set; }
 
-    public ExtendReturnDateCommand(int reservationId, ExtendReturnDateDto extendReturnDateDto)
+    public ExtendReturnDateCommand(int reservationId, ExtendReturnDateDto reservation)
     {
         ReservationId = reservationId;
-        this.extendReturnDateDto = extendReturnDateDto;
+        Reservation = reservation;
     }
 }

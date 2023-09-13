@@ -10,10 +10,10 @@ namespace QimiaLibrary.Business.Implementations.Commands.Reservations;
 
 public class CreateReservationCommand : IRequest<int>
 {
-    public CreateReservationDto CreateReservationDto { get; set; }
+    public CreateReservationDto Reservation { get; set; }
 
     public CreateReservationCommand(CreateReservationDto reservation)
     {
-        CreateReservationDto = reservation;
+        Reservation = reservation;
     }
 }
