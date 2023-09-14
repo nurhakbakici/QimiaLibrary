@@ -26,7 +26,7 @@ public class DeleteReservationCommandHandler : IRequestHandler<DeleteReservation
         var reservation = await _reservationManager.GetReservationById(request.ReservationId, cancellationToken);
         var book = await _bookManager.GetBookByIdAsync(reservation.BookID, cancellationToken);
 
-        reservation.RStatusID = 2; // inactive
+        reservation.RStatusID = 3; // returned
         book.BStatusID = 1; // on the shelf
 
         await _reservationManager.UpdateReservationAsync(reservation, cancellationToken);

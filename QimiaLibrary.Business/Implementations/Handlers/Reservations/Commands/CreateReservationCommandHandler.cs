@@ -42,12 +42,19 @@ public class CreateReservationCommandHandler : IRequestHandler<CreateReservation
         else
         {
             book.BStatusID = 3; //booked
+            book.Count -= 1;
 
-            await _reservationManager.CreateReservationAsync(reservation, cancellationToken);
-            await _bookManager.UpdateBookAsync(book, cancellationToken);
+            if(book.Count == 0)
+            {
+                throw new InvalidOperationException("dont have enough books");
+            }
+            else
+            {
+                await _reservationManager.CreateReservationAsync(reservation, cancellationToken);
+                await _bookManager.UpdateBookAsync(book, cancellationToken);
 
-
-            return reservation.ReservationID;
+                return reservation.ReservationID;
+            } 
         }
     }
 }

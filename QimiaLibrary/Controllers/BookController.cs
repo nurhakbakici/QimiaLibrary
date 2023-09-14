@@ -9,6 +9,11 @@ using QimiaLibrary.Business.Implementations.Commands.Books;
 using QimiaLibrary.Business.Implementations.Queries.Books.BookDtos;
 using QimiaLibrary.Business.Implementations.Queries.Books;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using QimiaLibrary.Business.Implementations.Commands.Reservations.ReservationDtos;
+using QimiaLibrary.Business.Implementations.Commands.Reservations;
+using QimiaLibrary.Business.Implementations.Queries.Reservations;
+using Microsoft.AspNetCore.ResponseCompression;
+using QimiaLibrary.Business.Implementations.Queries.Reservations.ReservationDtos;
 
 namespace QimiaLibrary.Controllers;
 
@@ -95,5 +100,28 @@ public class BookController : Controller
             new DeleteBookCommand(id), cancellationToken);
 
         return NoContent();
+    }
+
+    [HttpPost("takeBook")]
+    public async Task<ActionResult> TakeBook(
+        [FromBody] CreateReservationDto reservation,
+        CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(new TakeBookCommand(reservation), cancellationToken);
+
+        return CreatedAtAction(
+            nameof(GetReservation),
+            new { Id = response },
+            reservation);
+    }
+
+    [HttpGet("{id}/takeBookReservation")]
+    public Task<ReservationDto> GetReservation(
+       [FromRoute] int id,
+       CancellationToken cancellationToken)
+    {
+        return _mediator.Send(
+            new GetReservationQuery(id),
+            cancellationToken);
     }
 }
