@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QimiaLibrary.Business.Implementations.Commands.Workers;
 using QimiaLibrary.Business.Implementations.Commands.Workers.WorkerDtos;
@@ -9,6 +10,7 @@ namespace QimiaLibrary.Controllers;
 
 
 [ApiController]
+[Authorize]
 [Route("[Controller]")]
 
 

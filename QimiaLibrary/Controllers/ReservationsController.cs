@@ -11,11 +11,13 @@ using QimiaLibrary.Business.Implementations.Queries.Reservations.ReservationDtos
 using QimiaLibrary.Business.Implementations.Queries.Reservations;
 using QimiaLibrary.Business.Implementations.Commands.Workers.WorkerDtos;
 using QimiaLibrary.Business.Implementations.Commands.Workers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QimiaLibrary.Controllers;
 
 
 [ApiController]
+[Authorize]
 [Route("[Controller]")]
 
 public class ReservationsController : Controller

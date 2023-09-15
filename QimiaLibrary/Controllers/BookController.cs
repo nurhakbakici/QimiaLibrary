@@ -14,10 +14,12 @@ using QimiaLibrary.Business.Implementations.Commands.Reservations;
 using QimiaLibrary.Business.Implementations.Queries.Reservations;
 using Microsoft.AspNetCore.ResponseCompression;
 using QimiaLibrary.Business.Implementations.Queries.Reservations.ReservationDtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QimiaLibrary.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[Controller]")]
 
 public class BookController : Controller
